@@ -83,6 +83,11 @@ done
 # Make Grunt print stack traces by default
 command -v grunt > /dev/null && alias grunt="grunt --stack"
 
+# TMUX
+alias tml="tmux list-sessions"
+alias tma="tmux -2 attach -t $1"
+alias tmk="tmux kill-session -t $1"
+
 if [[ $(uname -s) == "Darwin" ]]; then
     source ~/.profile.osx.d/aliases
 elif [[ $(uname -s) == "Linux" ]]; then
