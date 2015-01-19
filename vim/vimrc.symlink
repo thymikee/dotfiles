@@ -127,10 +127,10 @@ let g:rubytest_in_quickfix = 1
 " --------------------------
 " Keybindings
 " --------------------------
-nnoremap <S-Right>     :bnext<CR>
-inoremap <S-Right>     <Esc>:bnext<CR>
-nnoremap <S-Left>     :bprevious<CR>
-inoremap <S-Left>     <Esc>:bprevious<CR>
+nnoremap <C-C><Right>     :bnext<CR>
+inoremap <C-C><Right>     <Esc>:bnext<CR>
+nnoremap <C-C><Left>     :bprevious<CR>
+inoremap <C-C><Left>     <Esc>:bprevious<CR>
 nnoremap <C-c><C-s>     :w<CR>
 inoremap <C-c><C-s>     <Esc>:w<CR>
 nnoremap <C-c><C-q>     :qa<CR>
