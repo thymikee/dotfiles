@@ -28,10 +28,6 @@
 	st = status
 	br = branch
 
-[apply]
-	# Detect whitespace errors when applying a patch
-	whitespace = fix
-
 [user]
     name = Igor Rzegocki
     email = ajgon@irgon.com
