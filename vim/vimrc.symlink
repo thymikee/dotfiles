@@ -28,7 +28,7 @@ NeoBundle 'editorconfig/editorconfig-vim'
 " NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'ajgon/vim-rubytest'
+NeoBundle 'janx/vim-rubytest'
 " NeoBundle 'skalnik/vim-vroom'
 " NeoBundle 'tpope/vim-rvm'
 NeoBundle 'Shougo/vimproc.vim', {

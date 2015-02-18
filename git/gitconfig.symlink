@@ -27,6 +27,8 @@
 	co = checkout
 	st = status
 	br = branch
+    sh = show --stat --oneline
+    lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 [user]
     name = Igor Rzegocki
