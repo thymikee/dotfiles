@@ -49,6 +49,9 @@ alias plistbuddy="/usr/libexec/PlistBuddy"
 alias mute="osascript -e 'set volume 0'"
 alias loud="osascript -e 'set volume 7'"
 
+# Notification from terminal
+alias notify="terminal-notifier -title Terminal -sound default -message "
+
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
