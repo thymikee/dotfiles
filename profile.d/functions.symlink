@@ -202,6 +202,13 @@ function gi() {
     eval npm install --save-dev grunt-{"$*"}
 }
 
+# Find largest files in directory
+function bitches() {
+    local num=${1:=20}
+    local dir=${2:=.}
+    find ${dir} -type f -print0| xargs -0 ls -ks | sort -nr | head -n ${num} | sed -e 's/^[ \t ]*//' | sed 's@ @#@' | awk -F# '{ sum=$1 ; hum[1024**3]="T";hum[1024**2]="G";hum[1024]="M";hum[1]="K"; for (x=1024**3; x>=1; x/=1024){ if (sum>=x) { printf "%d%s %s\n",sum/x,hum[x],$2;break  }  } }'
+}
+
 # Display image with tput
 # https://gist.github.com/heptal/6052573
 function image() {

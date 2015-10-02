@@ -149,6 +149,8 @@ imap <C-l> <Esc><C-W>l
 " --------------------------
 " Other options
 " --------------------------
+" Encoding
+set encoding=utf-8
 " Display statusbar
 set laststatus=2
 " Set colors to 256
