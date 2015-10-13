@@ -27,9 +27,9 @@
 	co = checkout
 	st = status
 	br = branch
-  sh = show --stat --oneline
-  lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-  previewized = !sh -c \"git clone git@gitlab.xhtmlized.com:previewized/$1.git\" -
+	sh = show --stat --oneline
+	lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	previewized = !sh -c \"git clone git@gitlab.xhtmlized.com:previewized/$1.git\" -
 [user]
     name = Michał Pierzchała
     email = thymikee@gmail.com
