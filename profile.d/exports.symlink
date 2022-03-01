@@ -27,11 +27,5 @@ export GREP_OPTIONS="--color=auto"
 # Customize to your needs...
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-# Fix names in tmux
-DISABLE_AUTO_TITLE=true
+source ~/.profile.osx.d/exports
 
-if [[ $(uname -s) == "Darwin" ]]; then
-    source ~/.profile.osx.d/exports
-elif [[ $(uname -s) == "Linux" ]]; then
-    source ~/.profile.linux.d/exports
-fi

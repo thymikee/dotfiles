@@ -3,8 +3,4 @@
 # Fix CTRL-Q and CTRL-S in terminal
 stty -ixon > /dev/null 2>&1
 
-if [[ $(uname -s) == "Darwin" ]]; then
-    source ~/.profile.osx.d/extra
-elif [[ $(uname -s) == "Linux" ]]; then
-    source ~/.profile.linux.d/extra
-fi
+source ~/.profile.osx.d/extra

@@ -87,7 +87,7 @@ using Z-Shell, it won&#8217;t install anything from the `bash` directory.
 To be prompted to install new frameworks simply run bootstrap with the `--new-setup` option.
 
 If you run the bootstrap script with the `--new-setup` flag you _may_&#8212;depending on your current configurations&#8212;be
-prompted to install some shell frameworks ([Oh-My-ZSH](http://github.com/robbyrussell/oh-my-zsh/) for Z-Shell users
+prompted to install some shell frameworks for Z-Shell users
 and [Bash-It](https://github.com/revans/bash-it) for Bash users).
 
 If you already have these frameworks installed in their default locations&#8212;**Dotfile Boilerplate**

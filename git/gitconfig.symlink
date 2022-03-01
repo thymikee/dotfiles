@@ -26,20 +26,33 @@
 	ci = commit
 	co = checkout
 	st = status
+	sw = switch
 	br = branch
+	cp = cherry-pick
 	sh = show --stat --oneline
 	lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 	previewized = !sh -c \"git clone git@gitlab.xhtmlized.com:previewized/$1.git\" -
+	purr = pull -r -p
+	# for github remotes
+	pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+	# for bitbucket/stash remotes
+	spr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
+	# removes local branches that are gone (e.g. already merged to current branch)
+	remove-local-branches = "!f() { git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done; }; f"
+
 [user]
-    name = Michał Pierzchała
-    email = thymikee@gmail.com
+	name = Michał Pierzchała
+	email = thymikee@gmail.com
 
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	editor = vim
-	pager = cat
+	# pager = $HOME/.scripts/diff-highlight
+	pager = delta --paging never
+	ignorecase = false
 [color]
 	# Use colors in Git commands that are capable of colored output when outputting to the terminal
 	ui = auto
@@ -56,9 +69,33 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+
 [merge]
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
 
 [push]
-	default = matching
+	default = current
+
+[homebrew]
+	analyticsdisabled = true
+	default = current
+
+[diff]
+	compactionHeuristic = 1
+
+# [pager]
+#   log = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+#   show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+#   diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+
+[interactive]
+	# diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+	diffFilter = delta --color-only
+
+[http]
+	version = HTTP/1.1
+
+[delta]
+	line-numbers = true
+

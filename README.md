@@ -47,7 +47,6 @@ named `[whatever].symlink` will by symlinked to `~/.[whatever]`.
 - [mathiasbynens](http://mths.be/dotfiles) exports, aliases and functions and osx where applicable
 - [tpope](https://github.com/tpope/vim-pathogen)'s Pathogen and sensible.vim
 - [gf3](https://github.com/gf3/dotfiles)'s Sexy Bash Prompt (for Bash Users)
-- [robbyrussell](https://github.com/robbyrussell/oh-my-zsh)'s Oh-my-zsh (for ZSH Users)
 - [sjl](http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/)'s Extravagant ZSH Prompt (for ZSH Users)
 - [carlhuda](https://github.com/carlhuda/janus)'s Janus Vim Framework (for ZSH Users)
 - [metellius](http://www.reddit.com/r/commandline/comments/kbeoe/you_can_make_readline_and_bash_much_more_user/) + [mathiasbynens](http://mths.be/dotfiles) inputrc
