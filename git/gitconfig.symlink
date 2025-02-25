@@ -76,6 +76,7 @@
 
 [push]
 	default = current
+	autoSetupRemote = true
 
 [homebrew]
 	analyticsdisabled = true
@@ -99,3 +100,5 @@
 [delta]
 	line-numbers = true
 
+[advice]
+	detachedHead = false

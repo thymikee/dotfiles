@@ -1,13 +1,22 @@
 
 # -- ZSH configuration --
 
+# Enable hooks
+autoload -U add-zsh-hook
+
+# Enable zsh recompilation
+autoload -Uz zrecompile
+
 # Enable autocompletions
 autoload -Uz compinit
-typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
-if [ $(date +'%j') != $updated_at ]; then
-  compinit -i
-else
+ 
+typeset -i updated_at=$(date +'%j' -r $HOME/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' $HOME/.zcompdump 2>/dev/null)
+typeset -i today=$(date +'%j')
+ 
+if [[ $updated_at -eq $today ]]; then
   compinit -C -i
+else
+  compinit -i
 fi
 zmodload -i zsh/complist
 # Save history so we get auto suggestions
@@ -23,26 +32,49 @@ setopt hist_ignore_all_dups # remove older duplicate entries from history
 setopt hist_reduce_blanks # remove superfluous blanks from history items
 setopt inc_append_history # save history entries as soon as they are entered
 setopt share_history # share history between different instances
-setopt correct_all # autocorrect commands
+# setopt correct_all # autocorrect commands
 setopt interactive_comments # allow comments in interactive shells
 # Improve autocompletion style
 zstyle ':completion:*' menu select # select completions with arrow keys
 zstyle ':completion:*' group-name '' # group results by category
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
-# Load antibody plugin manager
-source <(antibody init)
-# Plugins
-antibody bundle zdharma-continuum/fast-syntax-highlighting
-antibody bundle zsh-users/zsh-autosuggestions
-antibody bundle zsh-users/zsh-history-substring-search
-antibody bundle zsh-users/zsh-completions
-antibody bundle marzocchi/zsh-notify
-antibody bundle buonomo/yarn-completion
+
 # Keybindings
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^[[3~' delete-char
 bindkey '^[3;5~' delete-char
+
+# Install and load plugins
+plugins=(
+  zdharma-continuum/fast-syntax-highlighting
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-history-substring-search
+  zsh-users/zsh-completions
+  buonomo/yarn-completion
+  spaceship-prompt/spaceship-prompt
+)
+
+PLUGIN_DIR=$HOME/.zsh_plugins
+
+for plugin in $plugins; do
+  if [[ ! -d $PLUGIN_DIR/${plugin:t} ]]; then
+    git clone --depth 1 https://github.com/${plugin} $PLUGIN_DIR/${plugin:t}
+
+    for f in $PLUGIN_DIR/${plugin:t}/**/*.zsh; do
+      echo "Recompiling $f"
+      zrecompile -pq "$f"
+    done
+  fi
+
+  if [[ -f $PLUGIN_DIR/${plugin:t}/${plugin:t}.plugin.zsh ]]; then
+    source $PLUGIN_DIR/${plugin:t}/${plugin:t}.plugin.zsh
+  fi
+done
+
+# Load spaceship prompt
+source $PLUGIN_DIR/spaceship-prompt/spaceship.zsh
+
 # Theme
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
@@ -50,30 +82,18 @@ SPACESHIP_PROMPT_ORDER=(
   host          # Hostname section
   git           # Git section (git_branch + git_status)
   hg            # Mercurial section (hg_branch  + hg_status)
+  node          # Node.js section
   exec_time     # Execution time
-  line_sep      # Line break
-  vi_mode       # Vi-mode indicator
+  async         # Async jobs indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
+  sudo          # Sudo indicator
+  line_sep      # Line break
   char          # Prompt character
 )
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
-# Simplify prompt if we're using Hyper
-if [[ "$TERM_PROGRAM" == "Hyper" ]]; then
-  SPACESHIP_PROMPT_SEPARATE_LINE=false
-  SPACESHIP_DIR_SHOW=false
-  SPACESHIP_GIT_BRANCH_SHOW=false
-fi
-antibody bundle denysdovhan/spaceship-prompt
-# Open new tabs in same directory
-if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
-  function chpwd {
-    printf 'e]7;%sa' "file://$HOSTNAME${PWD// /%20}"
-  }
-  chpwd
-fi
 
 # -- ZSH configuration end --
 
@@ -83,7 +103,10 @@ for file in ~/.{exports,aliases,functions,fun,extra}; do
 done
 unset file
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-[ -s "$HOME/.nvm/nvm.sh"  ] && . "$HOME/.nvm/nvm.sh" # Add NVM support
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# pnpm
+export PNPM_HOME="/Users/thymikee/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
